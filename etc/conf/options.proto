@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "google/protobuf/struct.proto";
+
+// Service Configuration
+message FaceRecognitionOptions {
+    string broker_uri = 1;
+    string zipkin_uri = 2;
+    string persons_encondings  = 3;
+}
+
+

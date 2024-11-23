@@ -1,0 +1,5 @@
+{
+"broker_uri": "amqp://rabbitmq.default", 
+"zipkin_uri": "http://zipkin.default:9411",
+"persons_encondings": "/conf/persons.pkl"
+}

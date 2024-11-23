@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: is-face-recognition
+  namespace: default
+data:
+  recognition: |-
+    {
+      "broker_uri": "amqp://rabbitmq.default", 
+      "zipkin_uri": "http://zipkin.default:9411",
+      "persons_encondings": "/conf/persons.pkl",
+    }
+
+---
+apiVersion: extensions/v1beta1 
+kind: Deployment
+metadata:
+  name: is-face-recognition
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: "is-face-recognition"
+    spec:
+      containers:
+      - name: is-face-recognition
+        image: labvisio/is-face-recognition:0.0.1
+        command: [ "python3","main.py" ]
+        args: ["/conf/options.json"]
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            cpu: "4"
+            memory: 4096Mi
+            nvidia.com/gpu: 1
